@@ -70,8 +70,19 @@ public class AIManager : MonoBehaviour
 
     private void Update()
     {
-        CheckSpawnTimer(goodFishSpawnTimer, FishType.Good);
-        CheckSpawnTimer(badFishSpawnTimer, FishType.Bad);
+        LevelState levelState = LevelManager.Instance.GetLevelState();
+
+        switch (levelState)
+        {
+            case LevelState.ReadyLevel:
+                break;
+
+            case LevelState.Play:
+                CheckSpawnTimer(goodFishSpawnTimer, FishType.Good);
+                CheckSpawnTimer(badFishSpawnTimer, FishType.Bad);
+
+                break;
+        }
     }
 
     private void CheckSpawnTimer(float spawnTimer, FishType fishType)
