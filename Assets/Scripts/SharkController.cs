@@ -9,14 +9,16 @@ public enum InputType
 
 public class SharkController : MonoBehaviour
 {
+    public float speed;
+
+    private Vector3 movementVector;
+
     public void ReceiveInput(InputType inputID, object[] inputArguments)
     {
         switch (inputID)
         {
             case InputType.Movement:
-                Vector2 movementVector = (Vector2)inputArguments[0];
-
-                Debug.Log(movementVector);
+                movementVector = (Vector2)inputArguments[0];                
 
                 break;
         }
@@ -25,6 +27,6 @@ public class SharkController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position += movementVector * speed * Time.deltaTime;
     }
 }
