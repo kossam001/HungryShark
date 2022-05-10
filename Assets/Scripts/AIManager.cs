@@ -4,15 +4,55 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static AIManager Instance { get { return instance; } }
+
+    [Header("Character Settings")]
+    public GameObject fishTemplate;
+    public int numFishToSpawn;
+    public float spawnRate;
+
+    [Header("Scene Settings")]
+    public float spawnBoundsHeight;
+    public float spawnBoundsWidth;
+
+    private static AIManager instance;
+    private Queue<GameObject> fishPool = new Queue<GameObject>();
+    private float spawnTimer;
+
+    private void Awake()
     {
-        
+        if (instance != null && instance != this)
+            Destroy(this.gameObject);
+        else
+            instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        // Creating an GameObject pool 
+        for (int i = 0; i < numFishToSpawn; i++)
+        {
+            GameObject fish = Instantiate(fishTemplate);
+            fish.SetActive(false);
+
+            fishPool.Enqueue(fish);
+        }
+    }
+
+    private void Update()
+    {
+        spawnTimer -= Time.deltaTime;
+
+        if (spawnTimer < 0)
+        {
+            // Making the spawn a little random 
+            spawnTimer = Random.Range(0, spawnRate);
+
+            GameObject fish = fishPool.Dequeue();
+            fish.SetActive(true);
+
+            // We want the fish to spawn off screen, so that would be outside the bounds width
+            fish.transform.position = new Vector3(spawnBoundsWidth, Random.Range(-spawnBoundsHeight, spawnBoundsHeight));
+        }
     }
 }
