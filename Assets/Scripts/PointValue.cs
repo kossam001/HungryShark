@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PointValue : MonoBehaviour
 {
-    private int points;
+    [SerializeField] private int points;
 
     // Want to add the additional functionality of despawning the object when the points are retrieved
     public int GetPoints()
