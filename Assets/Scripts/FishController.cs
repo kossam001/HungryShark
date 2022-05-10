@@ -14,7 +14,6 @@ public class FishController : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        gameObject.SetActive(false);
-        AIManager.Instance.fishPool.Enqueue(gameObject);
+        AIManager.Instance.DespawnFish(gameObject);
     }
 }

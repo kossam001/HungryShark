@@ -34,9 +34,8 @@ public class AIManager : MonoBehaviour
         for (int i = 0; i < numFishToSpawn; i++)
         {
             GameObject fish = Instantiate(fishTemplate);
-            fish.SetActive(false);
 
-            fishPool.Enqueue(fish);
+            DespawnFish(fish);
         }
     }
 
@@ -55,5 +54,11 @@ public class AIManager : MonoBehaviour
             // We want the fish to spawn off screen, so that would be outside the bounds width
             fish.transform.position = new Vector3(spawnBoundsWidth, Random.Range(-spawnBoundsHeight, spawnBoundsHeight));
         }
+    }
+
+    public void DespawnFish(GameObject fish)
+    {
+        fish.SetActive(false);
+        fishPool.Enqueue(fish);
     }
 }
