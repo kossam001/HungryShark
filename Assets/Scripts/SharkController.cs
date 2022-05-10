@@ -27,6 +27,26 @@ public class SharkController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoveCharacter();
+    }
+
+    private void MoveCharacter()
+    {
         transform.position += movementVector * speed * Time.deltaTime;
+
+        // Check vertical bounds
+        if (transform.position.y > Camera.main.orthographicSize ||
+            transform.position.y < -Camera.main.orthographicSize)
+        {
+            transform.position = Vector3.Scale(new Vector3(1, -1), transform.position);
+        }
+
+        float cameraHorizontalSize = Camera.main.orthographicSize * Screen.width / Screen.height;
+
+        if (transform.position.x > cameraHorizontalSize || 
+            transform.position.x < -cameraHorizontalSize)
+        {
+            transform.position = Vector3.Scale(new Vector3(-1, 1), transform.position);
+        }
     }
 }
