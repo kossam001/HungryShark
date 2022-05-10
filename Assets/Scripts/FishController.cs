@@ -6,6 +6,7 @@ public class FishController : MonoBehaviour
 {
     public float speed;
     public Vector3 direction;
+    public FishType fishType;
 
     private void Update()
     {
