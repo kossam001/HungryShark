@@ -5,10 +5,13 @@ using UnityEngine.InputSystem;
 
 public class InputReceiver : MonoBehaviour
 {
+    public SharkController sharkController;
+
     public void OnMove(InputValue vectorValue)
     {
         Vector2 moveVector = vectorValue.Get<Vector2>();
 
-        Debug.Log(moveVector);
+        if (sharkController)
+            sharkController.ReceiveInput(InputType.Movement, new object[] { moveVector });
     }
 }
