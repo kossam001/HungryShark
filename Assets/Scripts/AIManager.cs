@@ -78,21 +78,24 @@ public class AIManager : MonoBehaviour
                 break;
 
             case LevelState.Play:
-                CheckSpawnTimer(goodFishSpawnTimer, FishType.Good);
-                CheckSpawnTimer(badFishSpawnTimer, FishType.Bad);
+                CheckSpawnTimer(ref goodFishSpawnTimer, FishType.Good);
+                CheckSpawnTimer(ref badFishSpawnTimer, FishType.Bad);
 
                 break;
         }
     }
 
-    private void CheckSpawnTimer(float spawnTimer, FishType fishType)
+    private void CheckSpawnTimer(ref float spawnTimer, FishType fishType)
     {
         spawnTimer -= Time.deltaTime;
 
         if (spawnTimer < 0)
         {
             // Making the spawn a little random 
-            spawnTimer = Random.Range(0, goodFishSpawnRate);
+            if (fishType == FishType.Good)
+                spawnTimer = Random.Range(0, goodFishSpawnRate);
+            else
+                spawnTimer = Random.Range(0, badFishSpawnRate);
 
             GameObject fish = SpawnFish(fishType);
 
