@@ -15,8 +15,9 @@ public class AIManager : MonoBehaviour
     public float spawnBoundsHeight;
     public float spawnBoundsWidth;
 
+    [HideInInspector] public Queue<GameObject> fishPool = new Queue<GameObject>();
+
     private static AIManager instance;
-    private Queue<GameObject> fishPool = new Queue<GameObject>();
     private float spawnTimer;
 
     private void Awake()

@@ -7,9 +7,14 @@ public class FishController : MonoBehaviour
     public float speed;
     public Vector3 direction;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
+    }
+
+    private void OnBecameInvisible()
+    {
+        gameObject.SetActive(false);
+        AIManager.Instance.fishPool.Enqueue(gameObject);
     }
 }
