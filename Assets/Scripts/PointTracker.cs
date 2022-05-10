@@ -16,6 +16,14 @@ public class PointTracker : MonoBehaviour
         {
             score += pointValue.GetPoints();
             scoreUI.text = score.ToString();
+
+            LevelManager.Instance.CheckObjective(score);
         }
     }
+
+    public void ResetScore()
+    {
+        score = 0;
+        scoreUI.text = score.ToString();
+    }    
 }
