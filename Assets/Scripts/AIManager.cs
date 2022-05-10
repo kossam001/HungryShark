@@ -25,10 +25,6 @@ public class AIManager : MonoBehaviour
     public int numBadFishToSpawn;
     public float badFishSpawnRate;
 
-    [Header("Scene Settings")]
-    public float spawnBoundsHeight;
-    public float spawnBoundsWidth;
-
     // Using two different pools because I want to have the option to control the frequency of each fish type
     [HideInInspector] public Queue<GameObject> goodFishPool = new Queue<GameObject>();
     [HideInInspector] public Queue<GameObject> badFishPool = new Queue<GameObject>();
@@ -92,8 +88,8 @@ public class AIManager : MonoBehaviour
             // Check if a fish was available in the pool
             if (!fish) return;
 
-            // We want the fish to spawn off screen, so that would be outside the bounds width
-            fish.transform.position = new Vector3(spawnBoundsWidth, Random.Range(-spawnBoundsHeight, spawnBoundsHeight));
+            // Setting the bounds to be relative to what the camera can see
+            fish.transform.position = new Vector3(-Camera.main.orthographicSize * Screen.width / Screen.height, Random.Range(-Camera.main.orthographicSize, Camera.main.orthographicSize));
         }
     }
 
